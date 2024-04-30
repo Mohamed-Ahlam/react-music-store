@@ -1,0 +1,10 @@
+.h1{
+    font-size: 300px;
+}
+.list{
+    display: flex;
+}
+.item{
+    border: 1px solid black;
+    margin: 10px;
+}
