@@ -13,9 +13,9 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 function App() {
 
-  const [instrumentList, setInstrumentList] = useState([ { "id": 1, "category": "Guitar", "name": "Fender Stratocaster","toCart": "false"}, 
-  { "id": 2, "category": "Keyboard", "name": "Yamaha P-125","toCart": "false" }, 
-  { "id": 3, "category": "Drum", "name": "DW Collector's Series","toCart": "false" } ])
+  const [instrumentList, setInstrumentList] = useState([ { "id": 1, "category": "Guitar", "name": "Fender Stratocaster","toCart": "false", "isFavorite":"false"}, 
+  { "id": 2, "category": "Keyboard", "name": "Yamaha P-125","toCart": "false" , "isFavorite":"false"}, 
+  { "id": 3, "category": "Drum", "name": "DW Collector's Series","toCart": "false", "isFavorite":"false" } ])
 
   const [cart, setCart] = useState([])
 
@@ -32,16 +32,30 @@ function App() {
 
   const updateCart = (item) =>{  
 
-    //this will first check if item has been added or not added to cart 
-    //if its been added, then callTheFunction will become addedToCart and itll be called below
+    //this will first check if item is true meaning it has NOT been added to cart meaning u need to NOW call addedToCart and add item to cart
     const callTheFunction = item.toCart ? addedToCart : removedFromCart
+    //if its been not been added, then callTheFunction will become addedToCart and call the addToCart(item)
     callTheFunction(item);
-    
+
+    //once item has been added/removed from cart then u update the item to true/false
+    //the map basically takes in each obj in instrumentList and places it in a new list that we called updatedItem
+    //inside map, it takes each item and checks to see if its equal to the theItem (the one we want to update)
+    //it does {...theItem which means it gets the last thing in that object, which is toCart, and it does !item.toCart (do the opposite of what toCart is)
+    //else it calls  : theItem meaning u just put that item in the updatedItem list 
     const updatedItem = instrumentList.map((theItem) => 
     theItem.id === item.id ? {...theItem, toCart: !item.toCart } : theItem
   )
-    
+    // update the list based of updatedItem
     setInstrumentList(updatedItem)
+  }
+
+  const toggleFavorite = (favItem) => {
+    const updateFavorite = instrumentList.map((item) => item.id === favItem.id ? {...item, isFavorite: !item.isFavorite} : item)
+
+    // only display when item is favorited
+    if(favItem.isFavorite){console.log(`Added to Fav`)}
+
+    setInstrumentList(updateFavorite)
   }
 
 
@@ -50,7 +64,7 @@ function App() {
 
       <h1>Music Store</h1>
 
-      <InList instrumentList={instrumentList} updateCart={updateCart}/>
+      <InList instrumentList={instrumentList} updateCart={updateCart} toggleFavorite={toggleFavorite}/>
  
     </div>
   );
