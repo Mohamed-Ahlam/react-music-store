@@ -69,3 +69,6 @@ npm i --save @fortawesome/free-solid-svg-icons
 npm i --save @fortawesome/free-regular-svg-icons
 npm i --save @fortawesome/free-brands-svg-icons
 npm i --save @fortawesome/react-fontawesome@latest
+
+### Future Work
+- add cart icon and add adding to cart display

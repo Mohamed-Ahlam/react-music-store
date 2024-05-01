@@ -30,7 +30,7 @@ function App() {
     console.log(`Added ${item.name}`);}
 
   const removedFromCart = (removedItem) =>{
-    setCart(cart.filter((item)=>item.id != removedItem.id))
+    setCart(cart.filter((item)=>item.id !== removedItem.id))
     console.log(`removed ${removedItem.name}`)
   }
   
@@ -58,7 +58,8 @@ function App() {
     const updateFavorite = instrumentList.map((item) => item.id === favItem.id ? {...item, isFavorite: !item.isFavorite} : item)
 
     // only display when item is favorited
-    if(favItem.isFavorite){console.log(`Added to Fav`)}
+    if(favItem.isFavorite){console.log(`Put ${favItem.name} to Favorites`)}
+    else{console.log(`Taken ${favItem.name} out From Favorites`)}
 
     setInstrumentList(updateFavorite)
   }
@@ -67,7 +68,9 @@ function App() {
   return (
     <Router>
       <div >
+        <div>
         <h1>Music Store</h1>
+        </div>
 
         <nav>
           <Link to="/" className="navItem">Home</Link>
