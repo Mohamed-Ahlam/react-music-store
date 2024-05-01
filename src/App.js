@@ -10,6 +10,11 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
+// import router
+import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
+
+
+
 
 function App() {
 
@@ -60,13 +65,38 @@ function App() {
 
 
   return (
-    <div >
+    <Router>
+      <div >
+        <h1>Music Store</h1>
 
-      <h1>Music Store</h1>
+        <nav>
+          <Link to="/" className="navItem">Home</Link>
+          <Link to="/drum" className="navItem">Drum</Link>
+          <Link to="/guitar" className="navItem">Guitar</Link>
+          <Link to="/keyboard" className="navItem">Keyboard</Link>
+        </nav>
 
-      <InList instrumentList={instrumentList} updateCart={updateCart} toggleFavorite={toggleFavorite}/>
- 
-    </div>
+        <Routes>
+          <Route path="/"
+          element={<InList instrumentList={instrumentList} updateCart={updateCart} toggleFavorite={toggleFavorite}/>}
+          exact/>        
+
+          {/* it makes a "new page" "drums", we dont really make a new page we just filter the list to make a new list of ONLY drum items and send it to InstrumentList, now the InstrumentList component will render and show only drum items */}
+          <Route path="/drum"
+          element={<InList instrumentList={instrumentList.filter((item)=> item.category === 'Drum')} updateCart={updateCart} toggleFavorite={toggleFavorite}/>}
+          />
+          <Route path="/guitar"
+          element={<InList instrumentList={instrumentList.filter((item)=> item.category === 'Guitar')} updateCart={updateCart} toggleFavorite={toggleFavorite}/>}
+          />   
+          <Route path="/keyboard"
+          element={<InList instrumentList={instrumentList.filter((item)=> item.category === 'Keyboard')} updateCart={updateCart} toggleFavorite={toggleFavorite}/>}
+          />      
+        </Routes>
+        
+  
+      </div>
+    </Router>
+    
   );
 }
 

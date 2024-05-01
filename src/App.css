@@ -1,6 +1,10 @@
 .h1{
     font-size: 300px;
 }
+
+.navItem{
+    margin: 20px;
+}
 .list{
     display: flex;
 }
